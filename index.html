@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Mathieu Guervenou | BUT GEII</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ESTHÉTIQUE GÉNÉRALE --- */
+        :root {
+            --primary-color: #c41230; /* Rouge SPIE */
+            --secondary-color: #2c3e50; /* Bleu foncé */
+            --accent-tech: #3498db; /* Bleu clair pour les compétences */
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li { margin-left: 30px; }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--primary-color); }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('votre-fond-tech.jpg');
+            background-size: cover;
+            color: var(--white);
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 { margin: 0; font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; }
+        h2 { font-weight: 300; color: #ddd; font-size: 1.5rem; margin-top: 10px; }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 25px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+        }
+        .btn:hover { background: #a00e26; transform: scale(1.05); }
+
+        /* --- SECTIONS GÉNÉRALES --- */
+        section {
+            padding: 80px 40px;
+            max-width: 95%; 
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* --- PROJETS (Plein écran PC) --- */
+        .project-grid {
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 1024px) {
+            .project-grid {
+                grid-template-columns: 1fr 1fr; 
+            }
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover { transform: translateY(-5px); }
+
+        /* --- CORRECTIF IMAGE ICI --- */
+        .project-img {
+            width: 100%;
+            height: 350px;
+            background-color: #ffffff; /* FOND BLANC demandé */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #777;
+            border-bottom: 4px solid var(--primary-color);
+            overflow: hidden; 
+        }
+
+        /* Force l'image à respecter la taille du cadre SANS ZOOMER */
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Garde l'image entière visible */
+        }
+
+        .project-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-badges { margin: 15px 0; }
+        
+        .tech-badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .user-edit-zone {
+            background-color: #fff8e1;
+            border: 2px dashed #f1c40f;
+            padding: 15px;
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-style: italic;
+            border-radius: 5px;
+        }
+
+        /* --- TIMELINE EXPERIENCE --- */
+        .timeline-item {
+            background: var(--white);
+            padding: 30px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- STYLES SPÉCIFIQUES COMPÉTENCES --- */
+        .skills-container {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 40px;
+        }
+        
+        .skill-box {
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 10px; 
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .skill-list li { margin-bottom: 15px; }
+        
+        .progress-bg {
+            background: #555; 
+            height: 6px; 
+            border-radius: 3px; 
+            margin-top: 5px;
+        }
+        
+        .progress-bar {
+            height: 100%; 
+            border-radius: 3px;
+        }
+
+        /* --- STYLES SOFT SKILLS --- */
+        .soft-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 30px;
+        }
+
+        .soft-card {
+            text-align: center; 
+            padding: 20px; 
+            border: 1px solid #eee; 
+            border-radius: 10px; 
+            transition: transform 0.3s;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .soft-card:hover { transform: translateY(-5px); }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            background: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 60px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #222;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" style="font-size: 1.5rem; font-weight: bold;">M. GUERVENOU</div>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#experience">Expérience</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#cv">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="accueil">
+        <h1>Mathieu Guervenou</h1>
+        <h2>Étudiant en BUT 2 GEII | Apprenti Automaticien</h2>
+        <p style="max-width: 700px; margin: 30px auto; font-size: 1.2rem;">
+            Passionné par les nouvelles technologies, l'IA et l'automatisme. Actuellement en formation à l'IUT de Vélizy et en alternance chez SPIE Industrie.
+            Je cherche à développer mes compétences en Automatisme et supervision industrielle.
+        </p>
+        <a href="#projets" class="btn">Voir mes projets</a>
+    </header>
+
+    <section id="projets">
+        <div style="text-align: center;">
+            <h2 class="section-title">Projets Académiques & Techniques</h2>
+        </div>
+
+        <div class="project-grid">
+
+            <article class="project-card">
+               <div class="project-img"><img src="carrefour.png" /></div>
+               <div class="project-content">
+                   <h3>Supervision de Carrefour & Maintenance</h3>
+                   <p><strong>Année :</strong> BUT 2</p>
+                   
+                   <div class="tech-badges">
+                       <span class="tech-badge">Automate Schneider</span>
+                       <span class="tech-badge">Ladder / SFC</span>
+                       <span class="tech-badge">Vijeo Designer</span>
+                       <span class="tech-badge">GEMMA</span>
+                   </div>
+
+                   <p><strong>Objectif :</strong> Pilotage complet d'un carrefour avec gestion des modes dégradés et maintenance.</p>
+                   
+                
+               </div>
+           </article>
+
+            <article class="project-card">
+                <div class="project-img"><img src="bras.png" /></div>
+                <div class="project-content">
+                    <h3>Bras Robotisé "Pick & Place"</h3>
+                    <p><strong>Année :</strong> BUT 2</p>
+
+                    <div class="tech-badges">
+                        <span class="tech-badge">Robotique 6 axes</span>
+                        <span class="tech-badge">Programmation SFC</span>
+                        <span class="tech-badge">Servomoteur</span>
+                    </div>
+
+                    <p><strong>Objectif :</strong> Automatiser le déplacement et le tri de pièces d'un point A vers un point B avec optimisation du temps de cycle.</p>
+                    
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-img"><img src="thermométre.png" /></div>
+                <div class="project-content">
+                    <h3>Thermomètre Numérique</h3>
+                    <p><strong>Année :</strong> BUT 1</p>
+
+                    <div class="tech-badges">
+                        <span class="tech-badge">Électronique Analogique</span>
+                        <span class="tech-badge">Mémoire programmable</span>
+                        <span class="tech-badge">Capteurs</span>
+                    </div>
+
+                    <p><strong>Objectif :</strong> Conception et réalisation complète d'un thermomètre numérique (capteur à affichage).</p>
+                    
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-img"><img src="bonsai.png" /></div>
+                <div class="project-content">
+                    <h3>Robot Autonome (Arduino)</h3>
+                    <p><strong>Année :</strong> BUT 1</p>
+
+                    <div class="tech-badges">
+                        <span class="tech-badge">Capteurs ultrason</span>
+                        <span class="tech-badge">Arduino</span>
+                        <span class="tech-badge">Servooteurs</span>
+                    </div>
+
+                    <p><strong>Objectif :</strong> Créer un robot capable de naviguer en autonomie et d'éviter les obstacles.</p>
+                    
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="experience" style="background-color: var(--bg-light);">
+        <div style="text-align: center;">
+            <h2 class="section-title">Expérience Professionnelle</h2>
+        </div>
+
+        <div class="timeline-item">
+            <h3>Apprenti Automaticien - SPIE Industrie</h3>
+            <p style="color: #666;"><em>Sept. 2023 - Présent | Flins-sur-Seine (78)</em></p>
+            
+            <div class="tech-badges" style="margin-top:10px;">
+                <span class="tech-badge" style="background:var(--primary-color);">FactoryTalk Optix</span>
+                <span class="tech-badge" style="background:var(--primary-color);">Studio 5000</span>
+                <span class="tech-badge" style="background:var(--primary-color);">Mise en service</span>
+            </div>
+
+            <ul>
+                <li><strong>Missions :</strong> Programmation d'automates (API), développement IHM et supervision, essais plateforme et mise en service sur site.</li>
+                <li><strong>Acquis :</strong> Découverte des codes professionnels, respect des contraintes temps/budget.</li>
+            </ul>
+        </div>
+
+        <div class="timeline-item">
+            <h3>Employé Rayon Électricité - Revert</h3>
+            <p style="color: #666;"><em>Été 2023 (6 semaines) | Versailles (78)</em></p>
+            <ul>
+                <li><strong>Missions :</strong> Vente conseil client et mise en rayon.</li>
+                <li><strong>Acquis :</strong> Développement du relationnel client.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="competences" style="background-color: var(--secondary-color); color: var(--white); max-width: 100%; padding: 80px 10%;">
+        <div style="text-align: center;">
+            <h2 class="section-title" style="color: var(--white); border-color: var(--primary-color);">Compétences Techniques</h2>
+            <p style="margin-bottom: 50px; color: #bdc3c7;">Acquises lors de ma formation BUT GEII et mon alternance chez SPIE Industrie.</p>
+        </div>
+
+        <div class="skills-container">
+            
+            <div class="skill-box">
+                <h3 style="color: var(--primary-color); margin-top: 0;"><i class="fas fa-cogs"></i> Automatisme & Supervision</h3>
+                <ul class="skill-list" style="list-style: none; padding: 0;">
+                    <li>
+                        <strong>Rockwell </strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">Studio 5000, FactoryTalk Optix</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: var(--primary-color); width: 90%;"></div></div>
+                    </li>
+                    <li>
+                        <strong>Schneider Electric</strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">Zelio Soft 2, Unity Pro</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: var(--primary-color); width: 85%;"></div></div>
+                    </li>
+                    <li>
+                        <strong>Langages API</strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">Ladder, SFC (Grafcet), Structuré (ST), GEMMA</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: var(--primary-color); width: 95%;"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="skill-box" style="border-left-color: #3498db;">
+                <h3 style="color: #3498db; margin-top: 0;"><i class="fas fa-microchip"></i> Électronique & Informatique</h3>
+                <ul class="skill-list" style="list-style: none; padding: 0;">
+                    <li>
+                        <strong>Conception Électronique (CAO)</strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">KiCad, LTSpice, PSim</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: #3498db; width: 80%;"></div></div>
+                    </li>
+                    <li>
+                        <strong>Informatique Industrielle</strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">Langage C, LabView, Scilab</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: #3498db; width: 75%;"></div></div>
+                    </li>
+                    <li>
+                        <strong>Terrain & Maintenance</strong><br>
+                        <span style="font-size: 0.9rem; color: #ccc;">Habilitation Élec, Diagnostic panne, Lecture schémas</span>
+                        <div class="progress-bg"><div class="progress-bar" style="background: #3498db; width: 90%;"></div></div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="softskills" style="background-color: var(--white); max-width: 95%; padding: 80px 20px;">
+        <div style="text-align: center;">
+            <h2 class="section-title">Soft Skills & Savoir-Être</h2>
+            <p style="margin-bottom: 40px;">Compétences transverses illustrées par mon parcours.</p>
+        </div>
+
+        <div class="soft-grid">
+            
+            <div class="soft-card">
+                <i class="fas fa-users-cog" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                <h3>Esprit d'Équipe</h3>
+                <p style="font-size: 0.95rem; color: #666;">
+                    Développé grâce à ma pratique du <strong>Handball (5 ans)</strong> et mes 2 stages en équipe E-sport (Vitality).
+                </p>
+            </div>
+
+            <div class="soft-card">
+                <i class="fas fa-tasks" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px;"></i>
+                <h3>Gestion de Projet & Rigueur</h3>
+                <p style="font-size: 0.95rem; color: #666;">
+                    Mise en pratique lors des SAE (Thermomètre, Robot) : respect des délais, répartition des tâches et rédaction de ccompte rendu.
+                </p>
+            </div>
+
+            <div class="soft-card">
+                <i class="fas fa-user-check" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                <h3>Autonomie & Adaptabilité</h3>
+                <p style="font-size: 0.95rem; color: #666;">
+                    Renforcée par mon alternance chez <strong>SPIE</strong> : interventions sur site client, découverte des codes de l'entreprise et gestion des imprévus.
+                </p>
+            </div>
+
+            <div class="soft-card">
+                <i class="fas fa-brain" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px;"></i>
+                <h3>Curiosité Technique</h3>
+                <p style="font-size: 0.95rem; color: #666;">
+                    Veille technologique active sur l'Intelligence Artificielle et la Blockchain. Passion pour le sport automobile (Rallye Jeune 2023).
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="cv" class="contact-container" style="max-width: 100%;">
+        <h2>Contact & CV</h2>
+        <p>N'hesitez pas à me contacter.</p>
+        
+        <div style="margin: 40px 0;">
+            <a href="mailto:mathieuguervenou5@gmail.com" class="btn" style="background: white; color: var(--secondary-color); margin: 10px;"><i class="fas fa-envelope"></i> Me contacter</a>
+            <a href="Mathieu.pdf" download class="btn" style="background: white; color: var(--secondary-color); margin: 10px;"><i class="fas fa-file-pdf"></i> Télécharger CV</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Mathieu Guervenou - Portfolio BUT GEII</p>
+    </footer>
+
+</body>
+</html>
